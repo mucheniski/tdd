@@ -1,8 +1,7 @@
 package com.example.tdd.service;
 
 import com.example.tdd.model.BookingModel;
-import com.example.tdd.repository.BookginRepository;
-import org.aspectj.lang.annotation.Before;
+import com.example.tdd.repository.BookingRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,16 +25,16 @@ public class BookingServiceTest {
     @TestConfiguration
     static class BookingServiceTestConfig {
         @Bean
-        public BookgingService bookgingService() {
-            return new BookgingService();
+        public BookingService bookgingService() {
+            return new BookingService();
         }
     }
 
     @Autowired
-    BookgingService bookgingService;
+    BookingService bookingService;
 
     @MockBean
-    BookginRepository bookginRepository;
+    BookingRepository bookingRepository;
 
     @BeforeEach
     public void setUp() {
@@ -43,17 +42,15 @@ public class BookingServiceTest {
         LocalDate checkOut = LocalDate.parse("2021-11-11");
         BookingModel bookingModel = new BookingModel("1", "Bruna", checkIn, checkOut, 2);
 
-        Mockito.when(bookginRepository.findByReseveName(bookingModel.getReserveName())).thenReturn(Optional.of(bookingModel));
+        Mockito.when(bookingRepository.findByReseveName(bookingModel.getReserveName())).thenReturn(Optional.of(bookingModel));
 
     }
 
     @Test
     public void bookingServiceDaysCalculatorTest() {
         String name = "Bruna";
-        Integer days = bookgingService.daysCalcylatorWithDataBase(name);
-
+        Integer days = bookingService.daysCalcylatorWithDataBase(name);
         Assertions.assertEquals(days, 10);
-
     }
 
 }
